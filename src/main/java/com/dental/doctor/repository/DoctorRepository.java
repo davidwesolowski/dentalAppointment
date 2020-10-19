@@ -41,7 +41,7 @@ public class DoctorRepository implements Repository<Doctor, UUID> {
     }
 
     @Override
-    public void delete(Doctor entity) {
+    public void delete(UUID id) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 

@@ -1,4 +1,4 @@
-package com.dental.complexity.entity;
+package com.dental.treatement.entity;
 
 public enum Complexity {
     EASY,

@@ -1,8 +1,8 @@
-package com.dental.complexity.entity;
+package com.dental.treatement.entity;
 
-import com.dental.complexity.entity.Complexity;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -11,8 +11,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Builder
 @ToString
-public class Treatment {
+public class Treatment implements Serializable {
     private UUID id;
     private String name;
     private float cost;

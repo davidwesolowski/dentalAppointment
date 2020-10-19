@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">>
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article>
+                <header><h1>Treatments</h1></header>
+                <h:dataTable value="#{treatmentList.treatments.treatments}" var="treatment">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{treatment.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">View</f:facet>
+                        <h:link outcome="/treatment/treatment_view.xhtml" value="view">
+                            <f:param name="id" value="#{treatment.id}"/>
+                        </h:link>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Delete</f:facet>
+                        <h:form>
+                            <h:commandButton value="delete" action="#{treatmentList.deleteTreatment(treatment)}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
