@@ -1,12 +1,9 @@
 package com.dental.appointment.model;
 
-import com.dental.appointment.entity.Appointment;
-import com.dental.doctor.entity.Doctor;
-import com.dental.treatement.entity.Treatment;
-import com.dental.treatement.model.TreatmentsModel;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -31,8 +28,7 @@ public class AppointmentsModel implements Serializable {
     public static class Appointment {
 
         private UUID id;
-        private Doctor doctor;
-        private Treatment treatment;
+        private String dateTime;
 
     }
 
@@ -42,11 +38,11 @@ public class AppointmentsModel implements Serializable {
     public static Function<Collection<com.dental.appointment.entity.Appointment>, AppointmentsModel> entityToModelMapper() {
         return appointments -> {
             AppointmentsModel.AppointmentsModelBuilder modelBuilder = AppointmentsModel.builder();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             appointments.stream()
                     .map(appointment -> Appointment.builder()
                             .id(appointment.getId())
-                            .doctor(appointment.getDoctor())
-                            .treatment(appointment.getTreatment())
+                            .dateTime(appointment.getDateTime().format(formatter))
                             .build())
                     .forEach(modelBuilder::appointment);
             return modelBuilder.build();

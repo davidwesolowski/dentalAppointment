@@ -3,7 +3,6 @@ package com.dental.appointment.repository;
 import com.dental.appointment.entity.Appointment;
 import com.dental.datastore.DataStore;
 import com.dental.repository.Repository;
-import com.dental.treatement.entity.Treatment;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;

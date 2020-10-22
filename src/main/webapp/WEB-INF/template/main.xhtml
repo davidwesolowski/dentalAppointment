@@ -12,27 +12,25 @@
         <meta name="keywords" content="Dental, appointments, tooth, teeth"/>
         <meta name="author" content="Dawid Wesolowski"/>
         <title>Dental applcation</title>
-
-        <!--h:outputStylesheet library="default" name="css/styles.css"/-->
+        <h:outputStylesheet library="default" name="css/styles.css"/>
     </h:head>
     <h:body>
         <div class="container">
             <header class="header">
                 <h1>Dental appointment application</h1>
-                <h:graphicImage value="/resources/img/tooth.png" />
+                <div class="header__img-box">
+                    <h:graphicImage value="/resources/img/tooth.png" styleClass="header__img"/>
+                </div>
             </header>
-
-            <nav class="navigation-bar">
+            <nav class="navbar">
                 <ul>
                     <li><h:link outcome="/index.xhtml">Home</h:link></li>
                     <li><h:link outcome="/treatment/treatment_list.xhtml">Treatments</h:link></li>
                 </ul>
             </nav>
-
             <section class="main-section">
                 <ui:insert name="content" />
             </section>
-
             <footer class="footer">
                 <p>Copyright &#169; 2020, Dawid Wesolowski </p>
             </footer>

@@ -1,0 +1,10 @@
+.notFoundBox__title {
+    font-size: var(--fontSizeHeader);
+    margin-bottom: 1.5rem;
+}
+
+.notFoundBox__link {
+    font-size: var(--fontSizeMedium);
+    color: #fff;
+    text-transform: uppercase;
+}

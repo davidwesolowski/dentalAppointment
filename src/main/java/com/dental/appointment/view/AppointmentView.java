@@ -1,11 +1,9 @@
 package com.dental.appointment.view;
 
 import com.dental.appointment.entity.Appointment;
-import com.dental.appointment.entity.Status;
 import com.dental.appointment.model.AppointmentModel;
 import com.dental.appointment.service.AppointmentService;
-import com.dental.doctor.entity.Doctor;
-import com.dental.treatement.entity.Treatment;
+import com.dental.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,19 +34,21 @@ public class AppointmentView {
         this.appointmentService = appointmentService;
     }
 
-    public void init() {
-        Optional<Appointment> appointment = appointmentService.find(UUID.fromString(id));
-        appointment.ifPresentOrElse(
-                original -> this.appointment = AppointmentModel.entityToModelMapper().apply(original),
-                () -> {
-                    try {
-                        FacesContext.getCurrentInstance().getExternalContext()
-                                .responseSendError(HttpServletResponse.SC_NOT_FOUND, "Appointment not found!");
-                    } catch (IOException exception) {
-                        exception.printStackTrace();
+    public void init() throws IOException {
+        if (Utils.validateId(id)) {
+            Optional<Appointment> appointment = appointmentService.find(UUID.fromString(id));
+            appointment.ifPresentOrElse(
+                    original -> this.appointment = AppointmentModel.entityToModelMapper().apply(original),
+                    () -> {
+                        try {
+                            FacesContext.getCurrentInstance().getExternalContext()
+                                    .responseSendError(HttpServletResponse.SC_NOT_FOUND, "Appointment not found!");
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
 }

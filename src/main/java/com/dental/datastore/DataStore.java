@@ -57,6 +57,13 @@ public class DataStore {
                 .map(CloningUtility::clone);
     }
 
+    public synchronized Optional<Treatment> findTreatmentByName(String name) {
+        return treatments.stream()
+                .filter(treatment -> treatment.getName().equals(name))
+                .findFirst()
+                .map(CloningUtility::clone);
+    }
+
     public synchronized void createTreatment(Treatment treatment) throws IllegalArgumentException {
         findTreatment(treatment.getId()).ifPresentOrElse(
                 original -> {

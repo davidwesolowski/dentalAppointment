@@ -1,7 +1,6 @@
 package com.dental.appointment.entity;
 
 import com.dental.treatement.entity.Treatment;
-import com.dental.doctor.entity.Doctor;
 import lombok.*;
 
 import java.io.Serializable;
@@ -18,7 +17,6 @@ import java.util.UUID;
 public class Appointment implements Serializable {
     private UUID id;
     private LocalDateTime dateTime;
-    private Doctor doctor;
     private Treatment treatment;
     private Status status;
 }

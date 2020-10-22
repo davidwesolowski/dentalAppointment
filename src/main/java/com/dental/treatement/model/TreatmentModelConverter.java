@@ -9,7 +9,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import java.util.Optional;
-import java.util.UUID;
 
 @FacesConverter(forClass = TreatmentModel.class, managed = true)
 public class TreatmentModelConverter implements Converter<TreatmentModel> {
@@ -23,9 +22,10 @@ public class TreatmentModelConverter implements Converter<TreatmentModel> {
 
     @Override
     public TreatmentModel getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
-        if (value == null || value.isBlank()) return null;
-        String id = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        Optional<Treatment> treatment = treatmentService.find(UUID.fromString(value));
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        Optional<Treatment> treatment = treatmentService.findByName(value);
         return treatment.isEmpty() ? null : TreatmentModel.entityToModelMapper().apply(treatment.get());
     }
 

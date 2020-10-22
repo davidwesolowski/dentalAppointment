@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{appointmentEdit.id}" required="false"/>
+        <f:viewAction action="#{appointmentEdit.init()}" />
+    </f:metadata>
+    <ui:define name="content">
+        <h:outputStylesheet library="appointment" name="css/appointment.css"/>
+        <h:panelGroup layout="block">
+            <div>
+                <header>
+                    <h1 class="title">Edit an appointment</h1>
+                </header>
+                <h:form>
+                    <article class="appointmentBox">
+                        <div>
+                            <h:outputLabel value="Name of treatment: " for="id-treatment" styleClass="appointmentBox__label"/>
+                            <h:selectOneMenu id="id-treatment" value="#{appointmentEdit.appointment.treatment}">
+                                <f:selectItem  itemValue="#{appointmentEdit.appointment.treatment}"
+                                               itemLabel="#{appointmentEdit.appointment.treatment}"
+                                />
+                                <f:selectItems var="treatment" value="#{appointmentEdit.treatments}"
+                                               itemValue="#{treatment.name}" itemLabel="#{treatment.name}"
+                                               itemLabelEscaped="false"
+                                />
+                            </h:selectOneMenu>
+                        </div>
+                        <div>
+                            <h:outputLabel value="Date time (YYYY-MM-DD HH:MM): " for="id-date-time"/>
+                            <h:inputText id="id-date-time" value="#{appointmentEdit.appointment.dateTime}"/>
+                        </div>
+                        <div>
+                            <h:outputLabel value="Status: " for="id-status"/>
+                            <h:selectOneRadio id="id-status" value="#{appointmentEdit.appointment.status}" styleClass="appointmentBox__status">
+                                <f:selectItems var="status" value="#{appointmentEdit.statuses}"
+                                               itemValue="#{status}" itemLabel="#{status}"
+                                               itemLabelEscaped="false"
+                                />
+                            </h:selectOneRadio>
+                        </div>
+                        <div class="appointmentBox__buttons">
+                            <h:commandButton value="Edit" action="#{appointmentEdit.editAppointment()}" styleClass="btn"/>
+                            <h:commandButton value="Cancel" immediate="true" action="#{appointmentEdit.cancelEditingAppointment()}" styleClass="btn"/>
+                        </div>
+                    </article>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

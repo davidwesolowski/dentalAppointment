@@ -1,0 +1,36 @@
+.treatmentBox {
+    min-height: 100%;
+    min-width: 80%;
+    margin-top: 2rem;
+}
+
+.treatmentBox__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.treatmentBox__text {
+    font-size: var(--fontSizeSmall);
+    padding: 0.7rem 1rem;
+}
+
+.treatmentBox > hr {
+    color: #fff;
+    opacity: 0.8;
+    margin: 2rem 0;
+}
+
+.treatmentBox__create {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1.5rem 1.5rem 1.5rem 0;
+}
+
+.treatmentBox__noAppointment {
+    text-align: center;
+    font-size: var(--fontSizeMedium);
+    margin-top: 1.5rem;
+    display: block;
+}

@@ -5,57 +5,68 @@
               xmlns:f="http://xmlns.jcp.org/jsf/core"
               template="/WEB-INF/template/main.xhtml">
     <f:metadata>
-        <f:viewParam name="id" value="#{treatmentView.id}" required="true"/>
+        <f:viewParam name="id" value="#{treatmentView.id}" required="false"/>
         <f:viewAction action="#{treatmentView.init()}" />
     </f:metadata>
 
     <ui:define name="content">
-        <h:panelGroup layout="block">
-            <article>
-                <header>
-                    <h1><h:outputText value="#{treatmentView.treatment.name.toUpperCase()}"/></h1>
-                </header>
-                <div>
-                    <div>
-                        Complexity: <h:outputText value="#{treatmentView.treatment.complexity}"/>
+        <h:outputStylesheet library="treatment" name="css/treatment.css"/>
+        <div class="treatmentBox">
+            <h:panelGroup layout="block">
+                <article>
+                    <header>
+                        <h1 class="title"><h:outputText value="#{treatmentView.treatment.name.toUpperCase()}"/></h1>
+                    </header>
+                    <div class="treatmentBox__details">
+                        <div class="treatmentBox__text">
+                            Complexity: <h:outputText value="#{treatmentView.treatment.complexity}"/>
+                        </div>
+                        <div class="treatmentBox__text">
+                            Cost: <h:outputText value="#{treatmentView.treatment.cost}"/> PLN
+                        </div>
+                        <div class="treatmentBox__text">
+                            Duration: <h:outputText value="#{treatmentView.treatment.duration}" /> h
+                        </div>
                     </div>
-                    <div>
-                        Cost: <h:outputText value="#{treatmentView.treatment.cost}"/> PLN
-                    </div>
-                    <div>
-                        Duration: <h:outputText value="#{treatmentView.treatment.duration}" />h
-                    </div>
-                </div>
-            </article>
-        </h:panelGroup>
-        <h:panelGroup layout="block">
-            <article>
-                <header>
-                    <h1>Appointments</h1>
-                </header>
-                <h:dataTable value="#{appointmentList.getAppointments(treatmentView.id).appointments}" var="appointment">
-                        <h:column>
-                            <f:facet name="header">Doctor</f:facet>
-                            <h:outputText value="#{appointment.doctor.firstName}  #{appointment.doctor.lastName}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Treatment</f:facet>
-                            <h:outputText value="#{appointment.treatment.name}"/>
-                        </h:column>>
-                        <h:column>
-                            <f:facet name="header">View</f:facet>
-                            <h:link outcome="/appointment/appointment_view.xhtml" value="view">
-                                <f:param name="id" value="#{appointment.id}"/>
-                            </h:link>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Delete</f:facet>
-                            <h:form>
-                                <h:commandButton value="delete" action="#{appointmentList.deleteAppointment(appointment)}"/>
-                            </h:form>
-                        </h:column>
+                </article>
+                <hr />
+            </h:panelGroup>
+            <h:panelGroup layout="block">
+                <article>
+                    <header>
+                        <h1 class="title">Appointments</h1>
+                    </header>
+                    <h:dataTable rendered="#{appointmentList.getAppointments(treatmentView.id).appointments.size() > 0}" value="#{appointmentList.getAppointments(treatmentView.id).appointments}" var="appointment">
+                            <h:column>
+                                <f:facet name="header">Date time</f:facet>
+                                <h:outputText value="#{appointment.dateTime}" />
+                            </h:column>>
+                            <h:column>
+                                <f:facet name="header">View</f:facet>
+                                <h:link outcome="/appointment/appointment_view.xhtml" value="view" styleClass="btn">
+                                    <f:param name="id" value="#{appointment.id}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Edit</f:facet>
+                                <h:link outcome="/appointment/appointment_edit.xhtml" value="edit" styleClass="btn">
+                                    <f:param name="id" value="#{appointment.id}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Delete</f:facet>
+                                <h:form>
+                                    <h:commandButton value="delete" action="#{appointmentList.deleteAppointment(appointment)}" styleClass="btn btn-red"/>
+                                </h:form>
+                            </h:column>
                     </h:dataTable>
-            </article>
-        </h:panelGroup>
+                    <h:outputText rendered="#{appointmentList.getAppointments(treatmentView.id).appointments.size() == 0}"
+                                  value="There are no appointments with #{treatmentView.treatment.name}!" styleClass="treatmentBox__noAppointment"/>
+                    <section class="treatmentBox__create">
+                        <h:link outcome="/appointment/appointment_create.xhtml" value="Create an appointment" styleClass="btn"/>
+                    </section>
+                </article>
+            </h:panelGroup>
+        </div>
     </ui:define>
 </ui:composition>

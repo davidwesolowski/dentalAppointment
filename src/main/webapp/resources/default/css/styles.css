@@ -1,0 +1,145 @@
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --fontSizeSmall: 1.3rem;
+    --fontSizeNormal: 1.5rem;
+    --fontSizeMedium: 1.7rem;
+    --fontSizeHeader: 2.2rem;
+}
+
+body {
+    background-color: #212121;
+    color: #fff;
+    font-size: 62.5%;
+    padding: 2rem 10rem 1rem 10rem;
+}
+
+table {
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table > thead > tr > th {
+    font-size: var(--fontSizeNormal);
+    padding: 0.8rem 1.2rem;
+}
+
+table > tbody > tr > td {
+    font-size: var(--fontSizeSmall);
+    padding: 0.8rem 1.2rem;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: 7rem 3rem minmax(calc(100vh - 17rem), auto) 3rem;
+    grid-template-areas:
+    "header"
+    "navbar"
+    "main-content"
+    "footer";
+}
+
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header > h1 {
+    font-size: var(--fontSizeHeader);
+}
+
+.header__img-box {
+    width: 6rem;
+    height: 6rem;
+}
+
+.header__img {
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.navbar {
+    grid-area: navbar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #424242;
+}
+
+.navbar > ul {
+    display: flex;
+}
+
+.navbar > ul > li:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.navbar > ul > li {
+    list-style: none;
+}
+
+.navbar > ul > li > a{
+    text-decoration: none;
+    font-size: var(--fontSizeNormal);
+    color: #fff;
+}
+
+.navbar > ul > li > a:hover {
+    color: #b7b1b1;
+}
+
+.main-section {
+    grid-area: main-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: var(--fontSizeMedium);
+    text-align: center;
+}
+
+.main-section > h1 {
+    font-size: var(--fontSizeHeader);
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--fontSizeNormal);
+    border-top: 1px solid #424242;
+}
+
+.btn {
+    font-size: var(--fontSizeSmall);
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 1rem;
+    border: none;
+}
+
+.btn-red {
+    background-color: crimson;
+    color: #fff;
+}

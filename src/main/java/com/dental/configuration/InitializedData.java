@@ -111,22 +111,20 @@ public class InitializedData {
 
         List<Appointment> appointments = new ArrayList<>();
         appointments.add(Appointment.builder()
-                    .id(UUID.randomUUID())
-                    .dateTime(LocalDateTime.of(
-                            2020, 10, 18,
-                            16, 30, 0
-                    ))
-                    .doctor(doctors.get(0))
-                    .treatment(treatments.get(1))
-                    .status(Status.REGISTERED)
-                    .build());
+                .id(UUID.randomUUID())
+                .dateTime(LocalDateTime.of(
+                        2020, 10, 18,
+                        16, 30, 0
+                ))
+                .treatment(treatments.get(1))
+                .status(Status.REGISTERED)
+                .build());
         appointments.add(Appointment.builder()
                 .id(UUID.randomUUID())
                 .dateTime(LocalDateTime.of(
                         2010, 8, 18,
                         16, 30, 0
                 ))
-                .doctor(doctors.get(1))
                 .treatment(treatments.get(1))
                 .status(Status.CANCELED)
                 .build());
@@ -136,7 +134,24 @@ public class InitializedData {
                         2017, 2, 18,
                         16, 30, 0
                 ))
-                .doctor(doctors.get(2))
+                .treatment(treatments.get(0))
+                .status(Status.HELD)
+                .build());
+        appointments.add(Appointment.builder()
+                .id(UUID.randomUUID())
+                .dateTime(LocalDateTime.of(
+                        2017, 2, 18,
+                        16, 30, 0
+                ))
+                .treatment(treatments.get(3))
+                .status(Status.HELD)
+                .build());
+        appointments.add(Appointment.builder()
+                .id(UUID.randomUUID())
+                .dateTime(LocalDateTime.of(
+                        2017, 2, 18,
+                        16, 30, 0
+                ))
                 .treatment(treatments.get(2))
                 .status(Status.HELD)
                 .build());

@@ -40,4 +40,6 @@ public class TreatmentService {
     public void delete(UUID id) {
         treatmentRepository.delete(id);
     }
+
+    public Optional<Treatment> findByName(String name) { return treatmentRepository.findByName(name); }
 }

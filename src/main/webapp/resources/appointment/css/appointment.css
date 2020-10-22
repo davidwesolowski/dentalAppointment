@@ -1,0 +1,28 @@
+.appointmentBox {
+    font-size: var(--fontSizeSmall);
+}
+
+.appointmentBox > div {
+    padding: 0.7rem 1rem;
+    margin-top: 1.5rem;
+}
+
+.appointmentBox__buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.appointmentBox__buttons > * {
+    margin-right: 1rem;
+}
+
+.appointmentBox select, .appointmentBox input {
+    padding: 0.5rem 1rem;
+    outline: none;
+    font-size: var(--fontSizeSmall);
+}
+
+.appointmentBox__status {
+    margin: 0;
+}

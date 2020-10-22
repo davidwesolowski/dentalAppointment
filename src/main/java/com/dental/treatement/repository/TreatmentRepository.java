@@ -44,4 +44,6 @@ public class TreatmentRepository implements Repository<Treatment, UUID> {
     public void delete(UUID id) {
         dataStore.deleteTreatment(id);
     }
+
+    public Optional<Treatment> findByName(String name) { return dataStore.findTreatmentByName(name); }
 }

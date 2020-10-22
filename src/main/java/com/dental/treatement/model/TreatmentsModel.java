@@ -1,6 +1,5 @@
 package com.dental.treatement.model;
 
-import com.dental.treatement.entity.Treatment;
 import lombok.*;
 
 import java.io.Serializable;

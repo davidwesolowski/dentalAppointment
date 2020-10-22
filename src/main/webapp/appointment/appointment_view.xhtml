@@ -10,24 +10,21 @@
     </f:metadata>
 
     <ui:define name="content">
+        <h:outputStylesheet library="appointment" name="css/appointment.css"/>
         <h:panelGroup layout="block">
             <article>
-                <div>
+                <header>
+                    <h1 class="title">Appointment details: </h1>
+                </header>
+                <div class="appointmentBox">
                     <div>
-                        <f:facet name="header">Doctor</f:facet>
-                        <h:outputText value="#{appointmentView.appointment.doctor.firstName} #{appointmentView.appointment.doctor.lastName}"/>
+                        Treatment: <h:outputText value="#{appointmentView.appointment.treatment.name}"/>
                     </div>
                     <div>
-                        <f:facet name="header">Treatment</f:facet>
-                        <h:outputText value="#{appointmentView.appointment.treatment.name}"/>
+                        Date time: <h:outputText value="#{appointmentView.appointment.dateTime}"/>
                     </div>
                     <div>
-                        <f:facet name="header">Date time</f:facet>
-                        <h:outputText value="#{appointmentView.appointment.dateTime}"/>
-                    </div>
-                    <div>
-                        <f:facet name="header">Status</f:facet>
-                        <h:outputText value="#{appointmentView.appointment.status}"/>
+                        Status: <h:outputText value="#{appointmentView.appointment.status}"/>
                     </div>
                 </div>
             </article>

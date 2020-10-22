@@ -5,9 +5,12 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/WEB-INF/template/main.xhtml">>
     <ui:define name="content">
+        <h:outputStylesheet library="treatment" name="css/treatment.css"/>
         <h:panelGroup layout="block">
-            <article>
-                <header><h1>Treatments</h1></header>
+            <article class="treatmentBox">
+                <header>
+                    <h1 class="title">Treatments</h1>
+                </header>
                 <h:dataTable value="#{treatmentList.treatments.treatments}" var="treatment">
                     <h:column>
                         <f:facet name="header">Name</f:facet>
@@ -15,14 +18,14 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">View</f:facet>
-                        <h:link outcome="/treatment/treatment_view.xhtml" value="view">
+                        <h:link outcome="/treatment/treatment_view.xhtml" value="view" styleClass="btn">
                             <f:param name="id" value="#{treatment.id}"/>
                         </h:link>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Delete</f:facet>
                         <h:form>
-                            <h:commandButton value="delete" action="#{treatmentList.deleteTreatment(treatment)}"/>
+                            <h:commandButton value="delete" action="#{treatmentList.deleteTreatment(treatment)}" styleClass="btn btn-red"/>
                         </h:form>
                     </h:column>
                 </h:dataTable>
