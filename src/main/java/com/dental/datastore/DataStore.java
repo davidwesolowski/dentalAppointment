@@ -64,39 +64,26 @@ public class DataStore {
                 .map(CloningUtility::clone);
     }
 
-    public synchronized void createTreatment(Treatment treatment) throws IllegalArgumentException {
-        findTreatment(treatment.getId()).ifPresentOrElse(
-                original -> {
-                    throw new IllegalArgumentException("Treatment with this id: " + treatment.getId() + " exists!");
-                },
-                () -> treatments.add(treatment)
-        );
+    public synchronized void createTreatment(Treatment treatment) {
+        treatments.add(treatment);
     }
 
-    public synchronized void updateTreatment(Treatment treatment) throws IllegalArgumentException {
-        findTreatment(treatment.getId()).ifPresentOrElse(
+    public synchronized void updateTreatment(Treatment treatment) {
+        findTreatment(treatment.getId()).ifPresent(
                 original -> {
                     treatments.remove(original);
                     treatments.add(treatment);
-                },
-                () -> {
-                    throw new IllegalArgumentException("Treatment with this id: " + treatment.getId() + " does not exists!");
                 }
         );
     }
 
-    public synchronized void deleteTreatment(UUID id) throws IllegalArgumentException {
-        findTreatment(id).ifPresentOrElse(
-                original -> {
-                    appointments = appointments.stream()
+    public synchronized void deleteTreatment(UUID id) {
+        findTreatment(id).ifPresent(original -> {
+            appointments = appointments.stream()
                             .filter(appointment -> !appointment.getTreatment().equals(original))
                             .collect(Collectors.toSet());
-                    treatments.remove(original);
-                },
-                () -> {
-                    throw new IllegalArgumentException("Treatment with this id: " + id.toString() + " does not exists!");
-                }
-        );
+            treatments.remove(original);
+        });
     }
 
     public synchronized List<Appointment> findAllAppointments() { return new ArrayList<>(appointments); }
@@ -108,34 +95,20 @@ public class DataStore {
                 .map(CloningUtility::clone);
     }
 
-    public synchronized void createAppointment(Appointment appointment) throws IllegalArgumentException {
-        findAppointment(appointment.getId()).ifPresentOrElse(
-                original -> {
-                    throw new IllegalArgumentException("Appointment with this id: " + appointment.getId() + " exists!");
-                },
-                () -> appointments.add(appointment)
-        );
+    public synchronized void createAppointment(Appointment appointment)  {
+        appointments.add(appointment);
     }
 
-    public synchronized void updateAppointment(Appointment appointment) throws IllegalArgumentException {
-        findAppointment(appointment.getId()).ifPresentOrElse(
-                original -> {
-                    appointments.remove(original);
-                    appointments.add(appointment);
-                },
-                () -> {
-                    throw new IllegalArgumentException("Appointment with this id: " + appointment.getId() + " doest not exists!");
-                }
-        );
+    public synchronized void updateAppointment(Appointment appointment) {
+        findAppointment(appointment.getId()).ifPresent(
+            original -> {
+                appointments.remove(original);
+                appointments.add(appointment);
+        });
     }
 
-    public synchronized void deleteAppointment(UUID id) throws IllegalArgumentException {
-        findAppointment(id).ifPresentOrElse(
-                original -> appointments.remove(original),
-                () -> {
-                    throw new IllegalArgumentException("Appointment with this id: " + id.toString() + " doest not exists!");
-                }
-        );
+    public synchronized void deleteAppointment(UUID id) {
+        findAppointment(id).ifPresent(original -> appointments.remove(original));
     }
 
     public synchronized List<Appointment> findAppointmentsByTreatment(UUID id) {
@@ -145,5 +118,11 @@ public class DataStore {
                 .collect(Collectors.toList());
     }
 
+    public synchronized Optional<Appointment> findAppointmentByTreatment (UUID treatmentId, UUID appointmentId) {
+        return findAppointmentsByTreatment(treatmentId).stream()
+                .filter(appointment -> appointment.getId().equals(appointmentId))
+                .findFirst()
+                .map(CloningUtility::clone);
+    }
 
 }

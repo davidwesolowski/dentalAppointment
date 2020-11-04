@@ -44,4 +44,8 @@ public class AppointmentService {
     public List<Appointment> findAppointmentsByTreatment(UUID id) {
         return appointmentRepository.findAppointmentsByTreatment(id);
     }
+
+    public Optional<Appointment> findAppointmentByTreatment(UUID treatmentId, UUID appointmentId) {
+        return appointmentRepository.findAppointmentByTreatment(treatmentId, appointmentId);
+    }
 }

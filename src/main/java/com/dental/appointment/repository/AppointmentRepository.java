@@ -48,4 +48,8 @@ public class AppointmentRepository implements Repository<Appointment, UUID> {
     public List<Appointment> findAppointmentsByTreatment(UUID id) {
         return dataStore.findAppointmentsByTreatment(id);
     }
+
+    public Optional<Appointment> findAppointmentByTreatment(UUID treatmentId, UUID appointmentId) {
+        return dataStore.findAppointmentByTreatment(treatmentId, appointmentId);
+    }
 }
