@@ -1,49 +1,64 @@
 package com.dental.treatement.repository;
 
-import com.dental.datastore.DataStore;
 import com.dental.repository.Repository;
 import com.dental.treatement.entity.Treatment;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Dependent
+@RequestScoped
 public class TreatmentRepository implements Repository<Treatment, UUID> {
 
-    private final DataStore dataStore;
+    private EntityManager entityManager;
 
-    @Inject
-    public TreatmentRepository(DataStore dataStore) {
-        this.dataStore = dataStore;
+    @PersistenceContext
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     public Optional<Treatment> find(UUID id) {
-        return dataStore.findTreatment(id);
+        return Optional.ofNullable(entityManager.find(Treatment.class, id));
     }
 
     @Override
     public List<Treatment> findAll() {
-        return dataStore.findAllTreatments();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        return entityManager.createQuery("SELECT t FROM Treatment t", Treatment.class).getResultList();
     }
 
     @Override
     public void update(Treatment treatment) {
-        dataStore.updateTreatment(treatment);
+        delete(treatment.getId());
+        create(treatment);
     }
-
+    
     @Override
     public void create(Treatment treatment) {
-        dataStore.createTreatment(treatment);
+        entityManager.persist(treatment);
     }
 
     @Override
     public void delete(UUID id) {
-        dataStore.deleteTreatment(id);
+        Query query = entityManager.createQuery("DELETE FROM Treatment WHERE id=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
-    public Optional<Treatment> findByName(String name) { return dataStore.findTreatmentByName(name); }
+    public Optional<Treatment> findByName(String name) {
+        try {
+            Query query = entityManager.createQuery("SELECT t FROM Treatment t WHERE t.name=:name", Treatment.class);
+            query.setParameter("name", name);
+            Treatment treatment = (Treatment) query.getSingleResult();
+            return Optional.of(treatment);
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
 }
